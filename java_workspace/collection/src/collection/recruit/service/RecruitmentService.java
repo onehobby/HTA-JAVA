@@ -1,6 +1,7 @@
 package collection.recruit.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import collection.recruit.repo.RecruitmentRepository;
 import collection.recruit.vo.Career;
@@ -159,11 +160,57 @@ public class RecruitmentService {
 			System.out.println("### 정보가 없습니다");
 			return;
 		}
-		
-		
 		findRecruitment.setPassed(passed);
+	}
+	
+	// 경력사항 수정하기
+	public void modifyCareer(int recruitmentNo, String companyName, Career career) {
+		Recruitment findRecruitment = repo.getRecruitmentByNo(recruitmentNo);
+		
+		if(findRecruitment == null) {
+			System.out.println("### 정보가 없습니다");
+			return;
+		}
+		
+		ArrayList<Career> findCareer = findRecruitment.getCareers();
+		for(Career careers : findCareer) {
+			if(careers.getCompanyName().equals(companyName)) {
+				careers.setCompanyName(career.getCompanyName());
+				careers.setDept(career.getDept());
+				careers.setPosition(career.getPosition());
+				careers.setYear(career.getYear());
+			}
+		}
 		
 	}
 	
+	
+	// 경력사항 삭제하기
+	public void deleteCareer(int recruitmentNo, String companyName, Career career) {
+		Recruitment findRecruitment = repo.getRecruitmentByNo(recruitmentNo);
+		
+		if(findRecruitment == null) {
+			System.out.println("### 정보가 없습니다.");
+			return;
+		}
+		
+		ArrayList<Career> findCareer = findRecruitment.getCareers();
+		Iterator<Career> itr = findCareer.iterator();
+		
+		while(itr.hasNext()) {
+			Career careerd = itr.next();
+			if(careerd.getCompanyName().equals(companyName)) {
+				itr.remove();
+			}
+		}
+	}
+	
+	// 전체 구직현황 조회
+	public void recruitmentSameDept(int recruintmentNo) {
+		ArrayList<Recruitment> allRecruitment = repo.getAllRecruitments();
+		for(Recruitment recruintment : allRecruitment) {
+			
+		}
+	}
 	
 }

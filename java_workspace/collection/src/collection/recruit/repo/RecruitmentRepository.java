@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import collection.recruit.vo.Recruitment;
-import collection.recruit.vo.Resume;
 
 public class RecruitmentRepository {
 
@@ -38,9 +37,7 @@ public class RecruitmentRepository {
 			System.out.println("### 정보가 없습니다");
 			return;
 		}
-		
 //		db.remove(findRecruitment);
-		
 		Iterator<Recruitment> itr = db.iterator();
 		while(itr.hasNext()) {
 			Recruitment recruitment = itr.next();
