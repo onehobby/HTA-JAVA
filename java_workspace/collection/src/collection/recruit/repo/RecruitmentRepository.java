@@ -45,6 +45,13 @@ public class RecruitmentRepository {
 				itr.remove();
 			}
 		}
+		
+//		while(db.iterator().hasNext()) {
+//			if(db.iterator().next().getNo() == findRecruitment.getNo()) {
+//				db.iterator().remove();
+//			}
+//		}
+		
 	}
 	
 	// 전체 구직현황 조회하기

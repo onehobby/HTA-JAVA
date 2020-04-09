@@ -11,5 +11,7 @@ public class IntegerDemo {
 		
 		int number2 = Integer.parseInt("1000000");
 		System.out.println(number2);
+		
+		System.out.println(number2 + 10);
 	}
 }

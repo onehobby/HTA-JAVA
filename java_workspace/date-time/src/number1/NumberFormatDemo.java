@@ -12,7 +12,7 @@ public class NumberFormatDemo {
 		// DecemalFormat
 		// 숫자를 지정된 형식의 텍스트로 변환한다.
 
-		DecimalFormat df = new DecimalFormat("0.000");
+		DecimalFormat df = new DecimalFormat("#.000");
 		String text = df.format(number);
 		System.out.println(text);
 		
