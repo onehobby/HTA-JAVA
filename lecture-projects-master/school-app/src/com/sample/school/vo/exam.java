@@ -1,0 +1,11 @@
+package com.sample.school.vo;
+
+public class exam {
+		  public long solution(int a, int b) {
+		      long answer = 0;
+		      for(int i=a; i<=b; i++) {
+		          answer += i;
+		      }
+		      return answer;
+		  }
+		}
