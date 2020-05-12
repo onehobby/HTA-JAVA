@@ -1,13 +1,20 @@
 package baekjoon;
 
 class Solution {
-	public double solution(int[] arr) {
-		double answer = 0;
-		int result = 0;
-		for(int a : arr) {
-			result += a;
+	public boolean solution(String s) {
+		boolean answer = false;
+		
+		if(s.length() == 4 || s.length() == 6) {
+			for(int i=0; i<s.length(); i++) {
+				if(s.charAt(i) >= '0' && s.charAt(i) <= '9') {
+					answer = true;
+				} else {
+					answer = false;
+				}
+			}
 		}
-		answer = (double)(result / arr.length);
+
 		return answer;
 	}
 }
+

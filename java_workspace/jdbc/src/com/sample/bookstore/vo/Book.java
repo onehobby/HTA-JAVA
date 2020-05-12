@@ -12,7 +12,9 @@ public class Book {
 	private int price;
 	private int discountPrice;
 	private Date registeredDate;
+	private int stock;
 	
+
 	public Book() {}
 	
 	public int getNo() {
@@ -64,6 +66,13 @@ public class Book {
 		this.registeredDate = registeredDate;
 	}
 	
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
 	
 	
 }
