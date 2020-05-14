@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div {
+            margin: 7px 0;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 300px; margin: 15px auto">
+        <div>
+            <!-- header -->
+            <h1>과정등록</h1>
+        </div>
+        <div style="background-color: #eeeeee; padding: 16px; border: 1px solid gray;">
+           <!-- body -->
+            <form>
+                <div>
+                    <div><label>과목명</label></div>
+                    <div><select name="subjects" style="width: 80%; height: 30px;">
+                        <option value="">컴퓨터개론</option>
+                        <option value=""></option>
+                        <option value=""></option>
+                    </select></div>
+                </div>
+                <div>
+                    <div><label>담당교수</label></div>
+                    <div><select name="professor" style="width: 80%; height: 30px;">
+                        <option value="">이교수</option>
+                        <option value=""></option>
+                        <option value=""></option>
+                    </select></div>
+                </div>
+                <div>
+                    <div><label>과정명</label></div>
+                    <div><input type="text" name="courses" style="width: 80%; height: 20px;"></div>
+                </div>
+                <div>
+                    <div>정원</div>
+                    <div><input type="text" name="registration" value="30" style="width: 80%; height: 20px;"></div>
+                </div>
+                <div style="text-align: right">
+                    <button type="reset">취소</button>
+                    <button type="submit">등록</button>
+                </div>
+            </form>    
+        </div>
+        <div>
+            <!-- footer -->
+             <p>중앙HTA</p>
+        </div>
+    </div>
+</body>
+</html>
