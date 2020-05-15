@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div {
+            margin: 10px ;
+            border: 1px solid red;
+            padding: 5px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+        }
+        th, td {
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div>
+        <!--헤더부-->
+       <h1>수강신청 현황조회</h1>
+        </div>
+        <!--바디부-->
+           <div>
+              <div>
+               <form>
+                  <label><strong>학기</strong></label>
+                   <select name="year" style="width: 12%">
+                       <option value="2020">2020</option>
+                       <option value="2019">2019</option>
+                       <option value="2018">2018</option>
+                       <option value="2017">2017</option>
+                       <option value="2016">2016</option>
+                   </select>
+                   <select name="semester" style="width: 12%">
+                       <option value="1">1학기</option>
+                       <option value="2">2학기</option>
+                   </select>
+                   <button type="submit" style="padding: 1px 5px">조회</button>
+               </form>
+               </div>                 
+               <div>
+                   <form>
+                      <div>
+                           <table>
+                                <tr>
+                                    <th style="background-color: lightgray"><input type="checkbox" name="courseAllChecked" value="Y"></th>
+                                    <td style="background-color: lightgray">과정번호</td>
+                                    <td style="background-color: lightgray">과정명</td>
+                                    <td style="background-color: lightgray">담당교수</td>
+                                    <td style="background-color: lightgray">취소여부</td>
+                                    <td style="background-color: lightgray">수료여부</td>
+                                    <td style="background-color: lightgray">성적</td>
+                                    <td style="background-color: lightgray"></td>
+                                </tr>
+                                <tr>
+                                    <th><input type="checkbox" name="courseChecked" value="10000" /></th>
+                                    <td>10000</td>
+                                    <td>자바기초</td>
+                                    <td>김교수</td>
+                                    <td>N</td>
+                                    <td>N</td>
+                                    <td>-</td>
+                                    <td><button type="button">삭제</button></td>
+                                </tr>
+                                <tr>
+                                    <th><input type="checkbox" name="courseChecked" value="10021"></th>
+                                    <td>10011</td>
+                                    <td>데이터베이스</td>
+                                    <td>이교수</td>
+                                    <td>N</td>
+                                    <td>N</td>
+                                    <td>-</td>
+                                    <td><button type="button">삭제</button></td>
+                                </tr>
+                                <tr>
+                                    <th><input type="checkbox" name="courseChecked" value="10031" disabled></th>
+                                    <td>10031</td>
+                                    <td>HTML</td>
+                                    <td>이교수</td>
+                                    <td>Y</td>
+                                    <td>N</td>
+                                    <td>-</td>
+                                    <td><button type="button" disabled>삭제</button></td>
+                                </tr>
+                           </table>
+                       </div>
+                       <div>
+                       <button type="reset" style="padding: 5px 10px">
+                           전체취소
+                       </button>
+                       <button type="reset" style="padding: 5px 10px">
+                           선택취소
+                       </button>
+                       </div>
+                   </form>
+               </div>
+           </div>
+        <div>
+        <!--푸터부-->
+            <p>
+                중앙HTA~~
+            </p>
+            <p>
+                주소: 서울특별시 종로구 율곡로10길 105 디아망빌딩 4층
+            </p>
+            <p>
+                전화: 070-1234-6789 메일 : admin@jhta.co.kr
+            </p>
+        </div>
+    </div>
+</body>
+</html>
