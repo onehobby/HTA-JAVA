@@ -15,7 +15,7 @@ import com.bookstore.vo.Book;
 public class BookDao {
 	
 	public BookDetailDto getBookByNo(int bookNo) throws SQLException {
-		BookDetailDto book = null;
+		BookDetailDto bookDetailDto = null;
 		
 		Connection connection = ConnectionUtil.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("book.getBookByNo"));
@@ -24,7 +24,7 @@ public class BookDao {
 		
 		if (rs.next()) {
 			
-			BookDetailDto bookDetailDto = new BookDetailDto();
+			bookDetailDto = new BookDetailDto();
 			
 			bookDetailDto.setNo(rs.getInt("book_no"));
 			bookDetailDto.setTitle(rs.getString("book_title"));
@@ -36,15 +36,14 @@ public class BookDao {
 			bookDetailDto.setDiscountPrice(rs.getInt("book_discount_price"));
 			bookDetailDto.setLikes(rs.getInt("book_likes"));
 			bookDetailDto.setStock(rs.getInt("book_stock"));
-			
-			return bookDetailDto;
+				
 		}
 		
 		rs.close();
 		pstmt.close();
 		connection.close();
 		
-		return book;
+		return bookDetailDto;
 		
 	}
 	
@@ -75,4 +74,50 @@ public class BookDao {
 		return books;
 		
 	}
+	
+	public List<Book> displayAllBooks() throws SQLException {
+		List<Book> books = new ArrayList<Book>();
+		
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("book.displayAllBooks"));
+		ResultSet rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			
+			Book book = new Book();
+			
+			book.setNo(rs.getInt("book_no"));
+			book.setTitle(rs.getString("book_title"));
+			book.setWriter(rs.getString("book_writer"));
+			book.setPrice(rs.getInt("book_price"));
+			
+			books.add(book);
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return books;
+	}
+	
+	public void insertNewBook(Book book) throws SQLException {
+		
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("book.insertBook"));
+		pstmt.setString(1, book.getTitle());
+		pstmt.setString(2, book.getWriter());
+		pstmt.setString(3, book.getGenre());
+		pstmt.setString(4, book.getPublisher());
+		pstmt.setInt(5, book.getPrice());
+		pstmt.setInt(6, book.getDiscountPrice());
+		pstmt.setInt(7, book.getStock());
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		
+	}
+	
 }
