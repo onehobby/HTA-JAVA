@@ -8,6 +8,9 @@ public class ReviewDto {
 	private String userName;
 	private int point;
 	private String content;
+	private String reviewYN;
+	private int bookNo;
+	private String userId;
 	private Date registeredDate;
 	
 	public ReviewDto() {}
@@ -18,6 +21,31 @@ public class ReviewDto {
 
 	public void setNo(int no) {
 		this.no = no;
+	}
+	
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public int getBookNo() {
+		return bookNo;
+	}
+
+	public void setBookNo(int bookNo) {
+		this.bookNo = bookNo;
+	}
+
+	public String getReviewYN() {
+		return reviewYN;
+	}
+
+	public void setReviewYN(String reviewYN) {
+		this.reviewYN = reviewYN;
 	}
 
 	public String getUserName() {

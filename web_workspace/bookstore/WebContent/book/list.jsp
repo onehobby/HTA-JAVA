@@ -56,8 +56,7 @@
 					%>
 					</tbody>
 				</table>
-				
-				<hr/>
+				<hr/> <!-- 밑줄태그 -->
 				<div class="text-right">
 					<a href="form.jsp"><strong>책 등록</strong></a>				
 				</div>

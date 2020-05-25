@@ -27,7 +27,7 @@
 	orderDao.insertNewOrder(order);
 	
 	// 작업이 완료된 후 되돌아갈 페이지 보내기
-	response.sendRedirect("completed.jsp");
+	response.sendRedirect("completed.jsp?userid=" + userId);
 	
 	
 	//
