@@ -98,7 +98,7 @@
 								<%
 									}
 								%>
-								<td><a href="../like/like.jsp=bookno=<%=order.getBookNo()%>&userid=<%=user.getId()%>">추천하러가기</a></td>
+								<td><a href="../like/like.jsp?bookno=<%=order.getBookNo()%>&userid=<%=user.getId()%>">추천하러가기</a></td>
 							</tr>
 						<%
 								}

@@ -22,9 +22,6 @@
 	ReviewDao reviewdao = new ReviewDao();
 	reviewdao.insertNewReview(review);
 	
-	String bn = String.valueOf(bookNo);
-	String encodedValue = URLEncoder.encode(bn, "utf-8");
-	
 	response.sendRedirect("../book/detail.jsp?bookno=" + bookNo);
 	
 

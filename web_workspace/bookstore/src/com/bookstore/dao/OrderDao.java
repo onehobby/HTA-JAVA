@@ -97,4 +97,35 @@ public class OrderDao {
 		
 	}
 	
+	public List<OrderDto> getAllOrdersByGenre(String genre) throws SQLException {
+		
+		List<OrderDto> orders = new ArrayList<OrderDto>();
+		
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("order.getAllOrdersByGenre"));
+		pstmt.setString(1, genre);
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			OrderDto orderDto = new OrderDto();
+			
+			orderDto.setNo(rs.getInt("order_no"));
+			orderDto.setUserName(rs.getString("user_name"));
+			orderDto.setTitle(rs.getString("book_title"));
+			orderDto.setPrice(rs.getInt("order_price"));
+			orderDto.setAmount(rs.getInt("order_amount"));
+			orderDto.setTotalPrice(rs.getInt("total_price"));
+			orderDto.setRegisteredDate(rs.getDate("order_registered_date"));
+			orderDto.setBookNo(rs.getInt("book_no"));
+			
+			orders.add(orderDto);
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return orders;
+	}
+	
 }

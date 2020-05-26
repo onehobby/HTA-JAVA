@@ -120,4 +120,16 @@ public class BookDao {
 		
 	}
 	
+	public void updateBookLike(int bookNo) throws SQLException {
+		
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("book.updateLike"));
+		pstmt.setInt(1, bookNo);
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		
+	}
+	
 }
