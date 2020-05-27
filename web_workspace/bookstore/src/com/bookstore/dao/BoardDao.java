@@ -165,6 +165,7 @@ public class BoardDao {
 		pstmt.setInt(1, boardNo);
 		ResultSet rs = pstmt.executeQuery();
 		
+		
 		if (rs.next()) {
 			
 			boardDto = new BoardDto();

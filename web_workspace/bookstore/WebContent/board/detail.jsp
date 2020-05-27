@@ -30,7 +30,6 @@
 	
 		BoardDao boardDao = new BoardDao();
 		BoardDto boardDto = boardDao.getpostByBoardNo(boardNo);
-		
 	%>
 		<div>
 			<p>게시글의 내용을 확인하세요.</p>

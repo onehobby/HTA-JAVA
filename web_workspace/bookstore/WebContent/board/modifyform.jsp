@@ -25,6 +25,7 @@
 	<div class="body">
 		<%
 			int boardNo = NumberUtil.stringToInt(request.getParameter("boardno"));
+			String error = request.getParameter("error");
 			
 			BoardDao boardDao = new BoardDao();
 			BoardDto boardDto = boardDao.getpostByBoardNo(boardNo);
