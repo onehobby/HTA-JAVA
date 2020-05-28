@@ -28,6 +28,7 @@
 				
 				BookDao bookDao = new BookDao();
 				BookDetailDto bookDetailDto = bookDao.getBookByNo(bookNo);
+				
 			%>
 			<p>주문정보를 확인하세요.</p>		
 			<div>

@@ -46,6 +46,7 @@ public class OrderDao {
 			OrderDto orderDto = new OrderDto();
 			
 			orderDto.setNo(rs.getInt("order_no"));
+			orderDto.setUserName(rs.getString("user_name"));
 			orderDto.setTitle(rs.getString("book_title"));
 			orderDto.setPrice(rs.getInt("order_price"));
 			orderDto.setAmount(rs.getInt("order_amount"));

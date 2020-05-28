@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.bookstore.util.StringUtil"%>
 <%@page import="com.bookstore.dto.OrderDto"%>
 <%@page import="java.util.List"%>
@@ -34,38 +35,28 @@
 		<h1>모든 주문내역</h1>
 	</div>
 	<div class="body">
-	
 		<%
-			String genre = request.getParameter("genre");
-			String nullCheck = StringUtil.nullToBlank(genre);
-			OrderDao orderDao = new OrderDao();
-			List<OrderDto> orders = null;
+			// 로그인 여부 체크
 			
-			if (nullCheck.isEmpty()) {
-				orders = orderDao.getAllOrdersWithUserName();
-			} else {
-				orders = orderDao.getAllOrdersByGenre(genre);
+			// 로그인되지 않은 회원은 로그인폼을 재요청하게 한다.
+			if (!"Yes".equals(isLogined)) {
+				response.sendRedirect("/bookstore/user/loginform.jsp?error=deny");
+				return;
 			}
+		
+			// 로그인된 회원인 경우
+			// 회원의 정보를 추가적인 입력없이 세션에서 사용자정보를 가져온다.
+			String username = (String) session.getAttribute("이름");
+			String userid = (String) session.getAttribute("아이디");
+			
+			// 세션에서 조회한 회원정보로 그 회원의 주문내역을 조회한다.
+			OrderDao orderDao = new OrderDao();
+			List<OrderDto> orders = orderDao.getOrdersByUserid(userid);
+					
 		%>
 		<div>
-			<div>
-			<p style="font-weight: bold">주문내역을 확인하세요</p>
-				<form method="get" action="all.jsp">
-					<label>구분</label>
-					<select name="genre">
-							<option value="" <%="".equals(genre) ? "selected" : "" %>>전체</option>
-							<option value="수필" <%="수필".equals(genre) ? "selected" : "" %>>수필</option>
-							<option value="인문" <%="인문".equals(genre) ? "selected" : "" %>>인문</option>
-							<option value="경제" <%="경제".equals(genre) ? "selected" : "" %>>경제</option>
-							<option value="자연과학/공학" <%="자연과학/공학".equals(genre) ? "selected" : "" %>>자연과학/공학</option>
-							<option value="IT" <%="IT".equals(genre) ? "selected" : "" %>>IT</option>
-							<option value="외국어" <%="외국어".equals(genre) ? "selected" : "" %>>외국어</option>
-							<option value="교재수험서" <%="교재수험서".equals(genre) ? "selected" : "" %>>교재수험서</option>
-					</select>
-					<button type="submit">검색</button>
-				</form>
-			</div>
-			<table class="table">
+			<p><strong><%=username %></strong>님, 주문내역을 확인하세요</p>
+		<table class="table">
 				<thead>
 					<tr>
 						<th>주문번호</th>
@@ -79,8 +70,17 @@
 				</thead>
 				<tbody>
 						<% 
-							for (OrderDto order : orders) {
+							if (orders.isEmpty()) {
 						%>
+							<tr>
+								<td rowspan="6" style="text-align: center;">주문내역이 존재하지 않습니다.</td>
+							</tr>
+						<%
+							} else {
+
+								for (OrderDto order : orders) {
+						%>
+			
 							<tr>
 								<td><%=order.getNo() %></td>
 								<td><%=order.getUserName() %></td>
@@ -91,6 +91,7 @@
 								<td><%=order.getRegisteredDate() %></td>
 							</tr>
 						<%
+								}
 							}
 						%>
 				</tbody>	
