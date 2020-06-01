@@ -28,9 +28,9 @@ public class ConnectionUtil {
 	 * @throws SQLException 데이터베이스 url, 계정정보등이 올바르지 않은 경우 발생된다.
 	 */
 	public static Connection getConnection() throws SQLException {
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 		String user = "hr";
-		String password = "zxcv1234";
+		String password = "1234";
 		
 		Connection connection = DriverManager.getConnection(url, user, password);
 		return connection;

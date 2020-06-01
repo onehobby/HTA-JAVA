@@ -28,10 +28,6 @@
 		
 		<div>
 			<%
-				if (!"Yes".equals(session.getAttribute("LOGINED_YN"))) {
-					response.sendRedirect("loginform.jsp?error=deny");
-					return;
-				}
 			
 				String userId = (String)session.getAttribute("LOGINED_USER_ID");
 				String userName = (String) session.getAttribute("LOGINED_USER_NAME");

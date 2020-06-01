@@ -9,6 +9,21 @@ public class Reply {
 	private String content;
 	private String delYN;
 	private Date createDate;
+	private int boardNo;
+	
+	public Reply() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public int getBoardNo() {
+		return boardNo;
+	}
+
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
+	}
+
 	public int getNo() {
 		return no;
 	}

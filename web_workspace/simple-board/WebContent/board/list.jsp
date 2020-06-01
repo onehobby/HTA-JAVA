@@ -54,7 +54,7 @@
 						if ("Y".equals(board.getBoardDelYN())) {
 				%>
 					<tr>
-						<td class="text-center">1</td>
+						<td class="text-center"><%=board.getBoardNo() %></td>
 						<td colspan="5"><del>삭제된 글입니다.</del></td>
 					</tr>
 					<%

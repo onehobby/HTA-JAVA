@@ -1,3 +1,9 @@
+<%@page import="java.util.List"%>
+<%@page import="com.simple.vo.Reply"%>
+<%@page import="com.simple.dao.ReplyDao"%>
+<%@page import="com.simple.dao.BoardDao"%>
+<%@page import="com.simple.dto.BoardDto"%>
+<%@page import="com.simple.util.NumberUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,6 +26,20 @@
 	<div class="header">
 		<h1>게시글 상세정보</h1>
 	</div>
+	<%
+			
+		
+		int boardNo = NumberUtil.stringToInt(request.getParameter("no"));
+	
+		BoardDao boardDao = new BoardDao();
+		BoardDto boardDto = boardDao.getPostsWithUserIdByBoardNo(boardNo);
+		
+		ReplyDao replyDao = new ReplyDao();
+		List<Reply> replys = replyDao.getReplysByBoardNo(boardNo);
+		
+		
+	%>
+	
 	<div class="body">
 		<p>게시글의 내용을 확인하고, 댓글도 달아보세요.</p>
 		<div>
@@ -33,31 +53,42 @@
 				<tbody>
 					<tr>
 						<th>제목</th>
-						<td colspan="3">연습입니다.</td>
+						<td colspan="3"><%=boardDto.getBoardTitle() %></td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td><a href="writers.jsp?userid=hong">홍길동</a></td>
+						<td><a href="writers.jsp?userid="><%=boardDto.getUserId() %></a></td>
 						<th>등록일</th>
-						<td>2020-04-31</td>
+						<td><%=boardDto.getBoardCreateDate() %></td>
 					</tr>
 					<tr>
 						<th>조회수</th>
-						<td>100</td>
+						<td><%=boardDto.getBoardHit() %></td>
 						<th>댓글갯수</th>
-						<td>20</td>
+						<td><%=boardDto.getBoardReplyCnt() %></td>
 					</tr>
 					<tr>
 						<th style="vertical-align: top;">내용</th>
-						<td colspan="3" style="vertical-align:top; height:150px; min-height: 150px;">내용입니다. 내용입니다.</td>
+						<td colspan="3" style="vertical-align:top; height:150px; min-height: 150px;"><%=boardDto.getBoardContent() %></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<div class="text-right">
-			[<a href="modifyform.jsp?no=1">수정하기</a>]
-			[<a href="delete.jsp?no=1">삭제하기</a>]
+		<%
+			if (session.getAttribute("LOGINED_USER_ID") == null 
+				|| !session.getAttribute("LOGINED_USER_ID").equals(boardDto.getUserId())) {
+		%>
 			[<a href="list.jsp">목록가기</a>]
+		<%
+			} else if (session.getAttribute("LOGINED_USER_ID").equals(boardDto.getUserId())) {
+		%>
+			[<a href="list.jsp">목록가기</a>]
+			[<a href="modifyform.jsp?no=<%=boardDto.getBoardNo()%>">수정하기</a>]
+			[<a href="delete.jsp?no=<%=boardDto.getBoardNo()%>">삭제하기</a>]
+		<%
+			}
+		%>
 		</div>
 		
 		<div>
@@ -70,32 +101,28 @@
 					<col width="40%">
 				</colgroup>
 				<tbody>
+				<%
+					for (Reply reply : replys) {
+				%>
 					<tr>
 						<th>작성자</th>
-						<td>김유신</td>
+						<td><%=reply.getWriter() %></td>
 						<th>등록일</th>
-						<td>2020-04-31</td>
+						<td><%=reply.getCreateDate() %></td>
 					</tr>
 					<tr class="bold-bordered">
 						<th>내용</th>
-						<td colspan="3">내용입니다. 내용입니다.</td>
+						<td colspan="3"><%=reply.getContent() %></td>
 					</tr>
-					<tr>
-						<th>작성자</th>
-						<td>김유신</td>
-						<th>등록일</th>
-						<td>2020-04-31</td>
-					</tr>
-					<tr class="bold-bordered">
-						<th>내용</th>
-						<td colspan="3">내용입니다. 내용입니다.</td>
-					</tr>
+				<%
+					}
+				%>	
 				</tbody>
 			</table>
 			<br/>
 			<div class="well">
 				<form method="post" action="../reply/register.jsp">
-					<input type="hidden" name="boardno" value="1"/>
+					<input type="hidden" name="boardno" value="<%=boardDto.getBoardNo() %>"/>
 					<div class="form-group">
 						<textarea rows="3" name="content"></textarea>
 					</div>

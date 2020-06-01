@@ -1,3 +1,6 @@
+<%@page import="com.simple.dto.BoardDto"%>
+<%@page import="com.simple.dao.BoardDao"%>
+<%@page import="com.simple.util.NumberUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../common/logincheck.jsp" %>
@@ -17,18 +20,35 @@
 		<h1>게시글 수정</h1>
 	</div>
 	<div class="body">
+	
+		<%
+			String error = request.getParameter("error");
+			if ("im".equals(error)) {
+		%>
+			<p>작성자의 아이디와 일치하지 않습니다.</p>
+		<%
+			}
+		%>
+	
+		<%
+			int boardNo = NumberUtil.stringToInt(request.getParameter("no"));
+		
+			BoardDao boardDao = new BoardDao();
+			BoardDto boardDto = boardDao.getPostsWithUserIdByBoardNo(boardNo);
+			
+		%>
 		<p>게시글 정보를 확인하고 수정하세요</p>
 		<div class="well">
-			<form method="post" action="modify.jsp">
+			<form method="post" action="update.jsp">
 				<!-- value에는 실제 글번호, 제목 내용이 들어가게 하세요 -->
-				<input type="hidden" name="no" value="1">
+				<input type="hidden" name="no" value="<%=boardNo%>">
 				<div class="form-group">
 					<label>제목</label>
-					<div><input type="text" name="title" value="제목제목제목"/></div>
+					<div><input type="text" name="title" value="<%=boardDto.getBoardTitle()%>"></div>
 				</div>
 				<div class="form-group">
 					<label>내용</label>
-					<div><textarea rows="12" name="content">내용내용내용</textarea></div>
+					<div><textarea rows="12" name="content"><%=boardDto.getBoardContent() %></textarea></div>
 				</div>
 				<div class="text-right">
 					<button type="submit">수정</button>

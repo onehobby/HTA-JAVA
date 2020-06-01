@@ -113,5 +113,77 @@ public class BoardDao {
 		connection.close();
 		
 	}
+	
+	public void updateBoardStateDelY(int boardNo) throws SQLException {
+		
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.updateBoardStateDelY"));
+		pstmt.setInt(1, boardNo);
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		
+	}
+	public void updatePostByBoard(Board board) throws SQLException {
+		
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.updateEditPostByBoardNo"));
+		pstmt.setString(1, board.getTitle());
+		pstmt.setString(2, board.getContent());
+		pstmt.setInt(3, board.getNo());
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}
+	
+	public void insertNewPostUsedBoardDto(BoardDto boardDto) throws SQLException {
+		
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.insertNewPostUsedBoardDto"));
+		pstmt.setString(1, boardDto.getBoardTitle());
+		pstmt.setString(2, boardDto.getUserId());
+		pstmt.setString(3, boardDto.getBoardContent());
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+	}
+	
+	
+	
+	
+	
+	public BoardDto getPostsWithUserIdByBoardNo(int boardNo) throws SQLException {
+		
+		BoardDto boardDto = null;
+		
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.getPostsWithUserIdByBoardNo"));
+		pstmt.setInt(1, boardNo);
+		ResultSet rs = pstmt.executeQuery();
+		
+		if (rs.next()) {
+			
+			boardDto = new BoardDto();
+			boardDto.setBoardNo(rs.getInt("board_no"));
+			boardDto.setBoardTitle(rs.getString("board_title"));
+			boardDto.setBoardHit(rs.getInt("board_hit"));
+			boardDto.setBoardReplyCnt(rs.getInt("board_reply_cnt"));
+			boardDto.setBoardDelYN(rs.getString("board_del_yn"));
+			boardDto.setBoardCreateDate(rs.getDate("board_create_date"));
+			boardDto.setUserId(rs.getString("user_id"));
+			boardDto.setBoardContent(rs.getString("board_content"));
+			
+		}
+		
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return boardDto;
+	}
 
+	
 }

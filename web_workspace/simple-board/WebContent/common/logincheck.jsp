@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%
+	request.setCharacterEncoding("utf-8");
 
-</body>
-</html>
+	String loginedYN = (String) session.getAttribute("LOGINED_YN");
+	String loginedUserID = (String) session.getAttribute("LOGINED_USER_ID");
+	String loginedUserName = (String) session.getAttribute("LOGINED_USER_NAME");
+	
+	if (loginedYN == null) {
+		response.sendRedirect("../user/loginform.jsp?error=deny");
+	}
+%>

@@ -12,6 +12,11 @@ public class Board {
 	private int replyCnt;
 	private String delYN;
 	private Date createDate;
+	
+	public Board() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public int getNo() {
 		return no;
 	}
