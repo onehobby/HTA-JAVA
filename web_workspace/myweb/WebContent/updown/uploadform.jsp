@@ -20,16 +20,18 @@
 					<label>제목</label>
 					<div>
 						<input type="text" name="title"/>
-					</div>
+					</div>	
 				</div>
-				<div class="form-group">
-					<label>첨부파일</label>
-					<div>
-						<input type="file" name="upfile"/>
+				<div class="text-right">  
+					<div class="form-group">
+						<label>첨부파일</label>
+						<div>
+							<input type="file" name="upfile"/>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<button type="submit">파일업로드</button>
+					<div class="form-group">
+						<button type="submit">파일업로드</button>
+					</div>
 				</div>
 			</form>
 		</div>

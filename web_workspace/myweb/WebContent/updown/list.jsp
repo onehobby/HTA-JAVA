@@ -1,3 +1,6 @@
+<%@page import="com.sample.vo.SampleFile"%>
+<%@page import="java.util.List"%>
+<%@page import="com.sample.dao.SampleFileDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,6 +16,10 @@
 		<h1>첨부파일 리스트</h1>
 	</div>
 	<div class="body">
+	<%
+		SampleFileDao fileDao = new SampleFileDao();
+		List<SampleFile> files = fileDao.getAllFiles();
+	%>
 		<div>
 			<p>첨부파일을 확인해보세요</p>
 			<table class="table">
@@ -25,12 +32,18 @@
 					</tr>
 				</thead>
 				<tbody>
+				<%
+					for (SampleFile f : files) {
+				%>
 					<tr>
-						<td>10</td>
-						<td>휴가신청서</td>
-						<td><a href="download.jsp?no=10">휴가신청서.hwp</a></td>
-						<td>2020-04-21</td>
+						<td><%=f.getNo() %></td>
+						<td><%=f.getTitle() %></td>
+						<td><a href="../download?no=<%=f.getNo()%>"><%=f.getName() %></a></td>
+						<td><%=f.getCreateDate() %></td>
 					</tr>
+				<%
+					}
+				%>
 				</tbody>
 			</table>
 		</div>

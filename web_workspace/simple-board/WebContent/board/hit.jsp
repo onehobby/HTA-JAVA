@@ -10,4 +10,6 @@
 	boardDao.updateHitByBoardNo(boardNo);
 	
 	response.sendRedirect("detail.jsp?no=" + boardNo);
+	
+	
 %>

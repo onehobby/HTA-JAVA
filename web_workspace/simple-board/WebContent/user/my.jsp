@@ -28,7 +28,6 @@
 		
 		<div>
 			<%
-			
 				String userId = (String)session.getAttribute("LOGINED_USER_ID");
 				String userName = (String) session.getAttribute("LOGINED_USER_NAME");
 				

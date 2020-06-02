@@ -20,6 +20,8 @@
 	</div>
 	<div class="footer">
 		<%@ include file="common/footer.jsp" %>
+		
+		
 	</div>
 </div>
 </body>

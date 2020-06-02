@@ -25,7 +25,7 @@
 	<div class="body">
 		<div class="error">
 			<% 
-				String error = request.getParameter("error"); 
+				String error = request.getParameter("error");
 			%>
 			
 			<%

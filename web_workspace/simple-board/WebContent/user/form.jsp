@@ -49,7 +49,7 @@
 				</div>
 				<div class="form-group">
 					<label>비밀번호</label>
-					<div><input type="text" name="pwd" /></div>
+					<div><input type="password" name="pwd" /></div>
 				</div>
 				<div class="text-right">
 					<button type="submit">회원가입</button>
