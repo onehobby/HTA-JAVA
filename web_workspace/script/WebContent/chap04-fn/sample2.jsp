@@ -15,6 +15,7 @@
 			var result = num1 + num2;
 			return result;
 		}
+		
 		// 매개변수가 있는 익명함수를 변수 notice에 대입했다.
 		var notice = function(message) {
 			alert("메세지: " + message)

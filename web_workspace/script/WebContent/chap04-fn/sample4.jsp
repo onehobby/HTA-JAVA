@@ -41,7 +41,7 @@
 	
 	<div class="tab">
 		<button class="tablinks" onclick="openContent('news')" id="news">뉴스</button>
-		<button class="tablinks" onclick="openContent('sports')" id="sports">스포츠</button>
+		<button class="tablinks" onclick="openContent('sport')" id="sports">스포츠</button>
 		<button class="tablinks" onclick="openContent('ent')" id="ent">연예</button>
 	</div>
 	

@@ -14,7 +14,7 @@
 		
 		notice("세미프로젝트 잘 합시다.");
 		
-		// 매개변수와 retrun문이 있는 함수
+		// 매개변수와 return문이 있는 함수
 		function plus(num1, num2) {
 			var result = num1 + num2;
 			return result;
