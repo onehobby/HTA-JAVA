@@ -1,10 +1,8 @@
 <%@page import="com.simple.dto.ReplyDto"%>
 <%@page import="com.simple.dao.ReplyDao"%>
-<%@page import="java.util.List"%>
 <%@page import="com.simple.dto.BoardDto"%>
+<%@page import="java.util.List"%>
 <%@page import="com.simple.dao.BoardDao"%>
-<%@page import="com.simple.vo.User"%>
-<%@page import="com.simple.dao.UserDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../common/logincheck.jsp" %>
@@ -18,27 +16,20 @@
 <body>
 <div class="wrapper">
 	<div class="navi">
+		<% String position = "my"; %>
 		<%@ include file="../common/navibar.jsp" %>
 	</div>
 	<div class="header">
 		<h1>나의 정보</h1>
 	</div>
 	<div class="body">
-		<p><strong>홍길동</strong>님의 정보를 확인하세요</p>
+		<p><strong><%=loginedUserName %></strong>님의 정보를 확인하세요</p>
 		
 		<div>
-			<%
-				String userId = (String)session.getAttribute("LOGINED_USER_ID");
-				String userName = (String) session.getAttribute("LOGINED_USER_NAME");
-				
-				BoardDao boardDao = new BoardDao();
-				List<BoardDto> boards = boardDao.getBoardByUserId(userId);
-				
-				ReplyDao replyDao = new ReplyDao();
-				List<ReplyDto> replys = replyDao.getReplysByUserId(userId);
-				
-			%>
-		
+		<%
+			BoardDao boardDao = new BoardDao();
+			List<BoardDto> boards = boardDao.getBoardsByWriter(loginedUserId);
+		%>
 			<h3>내가 작성한 글</h3>
 			<table class="table">
 				<colgroup>
@@ -61,17 +52,25 @@
 				</thead>
 				<tbody>
 				<%
-					for (BoardDto board : boards) {	 
-				%>
-					<tr>
-						<td class="text-center"><%=board.getBoardNo() %></td>
-						<td><a href="../board/detail.jsp?no=<%=board.getBoardNo()%>"><%=board.getBoardTitle() %></a></td>
-						<td class="text-center"><%=board.getBoardHit() %></td>
-						<td class="text-center"><%=board.getBoardReplyCnt() %></td>
-						<td class="text-center"><%=board.getBoardDelYN() %></td>
-						<td class="text-center"><%=board.getBoardCreateDate() %></td>
-					</tr>
+					if (boards.isEmpty()) {
+				%>	
+						<tr>
+							<td class="text-center" colspan="6">게시글이 없습니다.</td>
+						</tr>
 				<%
+					} else {
+						for (BoardDto boardDto : boards) {
+				%>
+						<tr>
+							<td class="text-center"><%=boardDto.getNo() %></td>
+							<td><a href="hit.jsp?no=<%=boardDto.getNo()%>"><%=boardDto.getTitle() %></a></td>
+							<td class="text-center"><a href="writers.jsp?userid=<%=boardDto.getWriter()%>"><%=boardDto.getWriterName() %></a></td>
+							<td class="text-center"><%=boardDto.getHit() %></td>
+							<td class="text-center"><%=boardDto.getReplyCnt() %></td>
+							<td class="text-center"><%=boardDto.getCreateDate() %></td>
+						</tr>
+				<%	
+						}
 					}
 				%>
 				</tbody>
@@ -79,6 +78,10 @@
 		</div>
 		
 		<div>
+		<%
+			ReplyDao replyDao = new ReplyDao();
+			List<ReplyDto> replys = replyDao.getReplysByWriter(loginedUserId);
+		%>
 			<h3>내가 작성한 댓글</h3>
 			<table class="table">
 				<colgroup>
@@ -97,15 +100,21 @@
 				</thead>
 				<tbody>
 				<%
-					for (ReplyDto reply : replys) {
+					if (replys.isEmpty()) {
+				%>
+					<tr><td class="text-center" colspan="4">댓글이 없습니다.</td></tr>
+				<%
+					} else {
+						for (ReplyDto replyDto : replys) {
 				%>
 					<tr>
-						<td class="text-center"><%=reply.getReplyNo() %></td>
-						<td><%=reply.getReplyContent() %></td>
-						<td class="text-center"><%=reply.getReplyDelYN() %></td>
-						<td class="text-center"><%=reply.getReplyCreateDate() %></td>
+						<td class="text-center"><%=replyDto.getNo() %></td>
+						<td><%=replyDto.getContent() %></td>
+						<td class="text-center"><%=replyDto.getDelYn() %></td>
+						<td class="text-center"><%=replyDto.getCreateDate() %></td>
 					</tr>
 				<%
+						}
 					}
 				%>
 				</tbody>

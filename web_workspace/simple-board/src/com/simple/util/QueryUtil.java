@@ -6,7 +6,7 @@ public class QueryUtil {
 
 	// query.properties에 정의된 내용을 key,value의 쌍으로 보관하는 객체
 	private static Properties prop = new Properties();
-	// staic은 클래스가로딩되자마자 아래의 파일을 가져온다.
+	
 	static {
 		try {
 			prop.load(Class.forName("com.simple.util.QueryUtil").getResourceAsStream("query.properties"));
@@ -23,4 +23,5 @@ public class QueryUtil {
 	public static String getSQL(String name) {
 		return prop.getProperty(name);
 	}
+	
 }

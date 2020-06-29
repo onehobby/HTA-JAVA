@@ -10,6 +10,7 @@
 <body>
 <div class="wrapper">
 	<div class="navi">
+		<% String position = "home"; %>
 		<%@ include file="common/navibar.jsp" %>
 	</div>
 	<div class="header">
@@ -20,8 +21,6 @@
 	</div>
 	<div class="footer">
 		<%@ include file="common/footer.jsp" %>
-		
-		
 	</div>
 </div>
 </body>

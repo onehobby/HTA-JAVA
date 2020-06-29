@@ -6,14 +6,13 @@
   version="4.0"
   metadata-complete="true">
 
-	<jsp-config>
-		<jsp-property-group>
-			<url-pattern>/home.jsp</url-pattern>
-			<url-pattern>/board/*</url-pattern>
-			<url-pattern>/reply/*</url-pattern>
-			<url-pattern>/user/*</url-pattern>
-			<include-prelude>/common/session.jsp</include-prelude>
-		</jsp-property-group>
-	</jsp-config>
-	
+  <jsp-config>
+  	<jsp-property-group>
+  		<url-pattern>*.jsp</url-pattern>
+  		<include-prelude>/common/session.jsp</include-prelude>
+  	</jsp-property-group>
+  </jsp-config>
+  
+  <request-character-encoding>utf-8</request-character-encoding>
+
 </web-app>

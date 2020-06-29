@@ -20,21 +20,23 @@
 <body>
 <div class="wrapper">
 	<div class="navi">
+		<% String position = "user"; %>
 		<%@ include file="../common/navibar.jsp" %>
 	</div>
 	<div class="header">
 		<h1>회원가입 정보</h1>
 	</div>
 	<div class="body">
-		<% 
-			if ("dup".equals(request.getParameter("error"))) { 
-		%>
+	<%
+		String error = request.getParameter("error");
+		if ("dup".equals(error)) {
+	%>
 		<div class="error">
 			<p>이미 사용중인 아이디입니다.</p>
 		</div>
-		<%
-			}		
-		%>
+	<%
+		}
+	%>
 		<p>사용자 정보를 입력하세요</p>
 		<div class="well">
 			<form id="user-form" method="post" action="register.jsp" onsubmit="checkField(event)">
@@ -64,33 +66,28 @@
 		<%@ include file="../common/footer.jsp" %>
 	</div>
 </div>
-
 <script type="text/javascript">
-	function checkField(event) {
-		
+	function checkField() {
 		clearErrorField();
 		
 		var nameField = document.querySelector("input[name=name]");
-	   	var emailField = document.querySelector("input[name=email]");
-	   	var idField = document.querySelector("input[name=id]");
-	   	var pwdField = document.querySelector("input[name=pwd]");
+		var emailField = document.querySelector("input[name=email]");
+		var idField = document.querySelector("input[name=id]");
+		var pwdField = document.querySelector("input[name=pwd]");
 		
-		isPassed = true;
+		var isPassed = true;
 		if (!nameField.value) {
 			nameField.classList.add("field-error");
 			isPassed = false;
 		}
-		
 		if (!emailField.value) {
 			emailField.classList.add("field-error");
 			isPassed = false;
 		}
-		
 		if (!idField.value) {
 			idField.classList.add("field-error");
 			isPassed = false;
 		}
-		
 		if (!pwdField.value) {
 			pwdField.classList.add("field-error");
 			isPassed = false;
@@ -109,6 +106,14 @@
 		}
 	}
 </script>
-
 </body>
 </html>
+
+
+
+
+
+
+
+
+

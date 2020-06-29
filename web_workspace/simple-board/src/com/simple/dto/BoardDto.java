@@ -3,76 +3,73 @@ package com.simple.dto;
 import java.util.Date;
 
 public class BoardDto {
+
+	private int no;
+	private String title;
+	private String writer;
+	private String writerName;
+	private String content;
+	private int hit;
+	private int replyCnt;
+	private String delYn;
+	private Date createDate;
 	
-	private int boardNo;
-	private String boardTitle;
-	private int boardHit;
-	private int boardReplyCnt;
-	private String boardDelYN;
-	private Date boardCreateDate;
-	private String userId;
-	private String boardContent;
+	public BoardDto() {}
 	
-	public BoardDto() {
-		// TODO Auto-generated constructor stub
+	public int getNo() {
+		return no;
 	}
-	
-	public String getBoardContent() {
-		return boardContent;
+	public void setNo(int no) {
+		this.no = no;
 	}
-
-	public void setBoardContent(String boardContent) {
-		this.boardContent = boardContent;
+	public String getTitle() {
+		return title;
 	}
-
-	public int getBoardNo() {
-		return boardNo;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-
-	public void setBoardNo(int boardNo) {
-		this.boardNo = boardNo;
+	public String getWriter() {
+		return writer;
 	}
-
-	public String getBoardTitle() {
-		return boardTitle;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
-	public void setBoardTitle(String boardTitle) {
-		this.boardTitle = boardTitle;
+	public String getWriterName() {
+		return writerName;
 	}
-	
-	public int getBoardHit() {
-		return boardHit;
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
 	}
-
-	public void setBoardHit(int boardHit) {
-		this.boardHit = boardHit;
+	public String getContent() {
+		return content;
 	}
-
-	public int getBoardReplyCnt() {
-		return boardReplyCnt;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public void setBoardReplyCnt(int boardReplyCnt) {
-		this.boardReplyCnt = boardReplyCnt;
+	public int getHit() {
+		return hit;
 	}
-	public String getBoardDelYN() {
-		return boardDelYN;
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
-	public void setBoardDelYN(String boardDelYN) {
-		this.boardDelYN = boardDelYN;
+	public int getReplyCnt() {
+		return replyCnt;
 	}
-	public Date getBoardCreateDate() {
-		return boardCreateDate;
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
 	}
-	public void setBoardCreateDate(Date boardCreateDate) {
-		this.boardCreateDate = boardCreateDate;
+	public String getDelYn() {
+		return delYn;
 	}
-	public String getUserId() {
-		return userId;
+	public void setDelYn(String delYn) {
+		this.delYn = delYn;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 	
 	
-
 }

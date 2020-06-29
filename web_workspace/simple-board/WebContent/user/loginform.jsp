@@ -17,34 +17,35 @@
 <body>
 <div class="wrapper">
 	<div class="navi">
+		<% String position = "login"; %>
 		<%@ include file="../common/navibar.jsp" %>
 	</div>
 	<div class="header">
 		<h1>로그인 정보</h1>
 	</div>
 	<div class="body">
+	<%
+		String error = request.getParameter("error");
+		if ("fail".equals(error)) {
+	%>
 		<div class="error">
-			<% 
-				String error = request.getParameter("error");
-			%>
-			
-			<%
-				if ("fail".equals(error)) {
-			%>
-				<p>아이디 혹은 비밀번호가 올바르지 않습니다.</p>
-			<%
-				}
-			%>
-			
-			<%
-				if ("deny".equals(error)) {
-			%>
-				<p>로그인 후 사용할 수 있는 서비스입니다.</p>
-			<%
-				}
-			%>
+			<p>아이디 혹은 비밀번호가 올바르지 않습니다.</p>
 		</div>
-
+	<%		
+		} else if ("disabled".equals(error)) {
+	%>
+		<div class="error">
+			<p>삭제되거나 탈퇴한 사용자입니다.</p>
+		</div>
+	<%		
+		} else if ("deny".equals(error)) {
+	%>
+		<div class="error">
+			<p>로그인 후 사용할 수 있는 서비스입니다.</p>
+		</div>
+	<%		
+		}
+	%>
 		<p>아이디와 비밀번호를 입력하세요</p>
 		<div class="well">
 			<form method="post" action="login.jsp">

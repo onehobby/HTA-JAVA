@@ -14,41 +14,33 @@
 <body>
 <div class="wrapper">
 	<div class="navi">
+		<% String position = "board"; %>
 		<%@ include file="../common/navibar.jsp" %>
 	</div>
 	<div class="header">
 		<h1>게시글 수정</h1>
 	</div>
 	<div class="body">
-	
-		<%
-			String error = request.getParameter("error");
-			if ("im".equals(error)) {
-		%>
-			<p>작성자의 아이디와 일치하지 않습니다.</p>
-		<%
-			}
-		%>
-	
-		<%
-			int boardNo = NumberUtil.stringToInt(request.getParameter("no"));
+	<%
+		int boardNo = NumberUtil.stringToInt(request.getParameter("no"), 1);
+		int pageNo = NumberUtil.stringToInt(request.getParameter("page"));
 		
-			BoardDao boardDao = new BoardDao();
-			BoardDto boardDto = boardDao.getPostsWithUserIdByBoardNo(boardNo);
-			
-		%>
+		BoardDao boardDao = new BoardDao();
+		BoardDto boardDto = boardDao.getBoard(boardNo);
+	%>
 		<p>게시글 정보를 확인하고 수정하세요</p>
 		<div class="well">
-			<form method="post" action="update.jsp">
+			<form method="post" action="modify.jsp">
 				<!-- value에는 실제 글번호, 제목 내용이 들어가게 하세요 -->
-				<input type="hidden" name="no" value="<%=boardNo%>">
+				<input type="hidden" name="no" value="<%=boardDto.getNo()%>">
+				<input type="hidden" name="page" value="<%=pageNo%>">
 				<div class="form-group">
 					<label>제목</label>
-					<div><input type="text" name="title" value="<%=boardDto.getBoardTitle()%>"></div>
+					<div><input type="text" name="title" value="<%=boardDto.getTitle()%>"/></div>
 				</div>
 				<div class="form-group">
 					<label>내용</label>
-					<div><textarea rows="12" name="content"><%=boardDto.getBoardContent() %></textarea></div>
+					<div><textarea rows="12" name="content"><%=boardDto.getContent() %></textarea></div>
 				</div>
 				<div class="text-right">
 					<button type="submit">수정</button>

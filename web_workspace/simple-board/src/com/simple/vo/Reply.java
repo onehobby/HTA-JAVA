@@ -3,19 +3,48 @@ package com.simple.vo;
 import java.util.Date;
 
 public class Reply {
-	
+
 	private int no;
 	private String writer;
 	private String content;
-	private String delYN;
-	private Date createDate;
+	private String delYn;
 	private int boardNo;
+	private Date createDate;
 	
-	public Reply() {
-		// TODO Auto-generated constructor stub
+	public Reply() {}
+
+	public int getNo() {
+		return no;
 	}
-	
-	
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getDelYn() {
+		return delYn;
+	}
+
+	public void setDelYn(String delYn) {
+		this.delYn = delYn;
+	}
+
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -24,33 +53,10 @@ public class Reply {
 		this.boardNo = boardNo;
 	}
 
-	public int getNo() {
-		return no;
-	}
-	public void setNo(int no) {
-		this.no = no;
-	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public String getDelYN() {
-		return delYN;
-	}
-	public void setDelYN(String delYN) {
-		this.delYN = delYN;
-	}
 	public Date getCreateDate() {
 		return createDate;
 	}
+
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}

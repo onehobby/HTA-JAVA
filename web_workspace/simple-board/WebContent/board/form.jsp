@@ -11,6 +11,7 @@
 <body>
 <div class="wrapper">
 	<div class="navi">
+		<% String position = "board"; %>
 		<%@ include file="../common/navibar.jsp" %>
 	</div>
 	<div class="header">

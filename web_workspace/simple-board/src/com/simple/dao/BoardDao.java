@@ -1,189 +1,269 @@
 package com.simple.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.simple.dto.BoardDto;
-import com.simple.util.ConnectionUtil;
+import com.simple.util.JdbcHelper;
+import com.simple.util.JdbcHelper.RowMapper;
 import com.simple.util.QueryUtil;
 import com.simple.vo.Board;
 
 public class BoardDao {
-	
-	public List<BoardDto> getBoardByUserId(String userId) throws SQLException {
-		List<BoardDto> boards = new ArrayList<BoardDto>();
+
+	public void insertBoard(Board board) {
 		
+		JdbcHelper.insert(QueryUtil.getSQL("board.insertBoard"), 
+						  board.getTitle(), board.getWriter(), board.getContent());
+		
+		/*
 		Connection connection = ConnectionUtil.getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.getBoardByUserId"));
-		pstmt.setString(1, userId);
-		ResultSet rs = pstmt.executeQuery();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.insertBoard"));
+		pstmt.setString(1, board.getTitle());
+		pstmt.setString(2, board.getWriter());
+		pstmt.setString(3, board.getContent());
 		
-		while (rs.next()) {
-			BoardDto board = new BoardDto();
-			
-			board.setBoardNo(rs.getInt("board_no"));
-			board.setBoardTitle(rs.getString("board_title"));
-			board.setBoardHit(rs.getInt("board_hit"));
-			board.setBoardReplyCnt(rs.getInt("board_reply_cnt"));
-			board.setBoardDelYN(rs.getString("board_del_yn"));
-			board.setBoardCreateDate(rs.getDate("board_create_date"));
-			board.setUserId(rs.getString("user_id"));
-			
-			boards.add(board);
-		}
-		
-		rs.close();
-		pstmt.close();
-		connection.close();
-		
-		return boards;
-	}
-	
-	public List<Board> getAllBoards() throws SQLException {
-		List<Board> boards = new ArrayList<Board>();
-		
-		Connection connection = ConnectionUtil.getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.getAllBoards"));
-		ResultSet rs = pstmt.executeQuery();
-		
-		while (rs.next()) {
-			Board board = new Board();
-			
-			board.setNo(rs.getInt("board_no"));
-			board.setTitle(rs.getString("board_title"));
-			board.setWriter(rs.getString("board_writer"));
-			board.setContent(rs.getString("board_content"));
-			board.setHit(rs.getInt("board_hit"));
-			board.setReplyCnt(rs.getInt("board_reply_cnt"));
-			board.setDelYN(rs.getString("board_del_yn"));
-			board.setCreateDate(rs.getDate("board_create_date"));
-			
-			boards.add(board);
-			
-		}
-		
-		rs.close();
-		pstmt.close();
-		connection.close();
-		
-		return boards;
-	}
-	
-	public List<BoardDto> getAllBoardsWtihUserId() throws SQLException {
-		List<BoardDto> boards = new ArrayList<BoardDto>();
-		
-		Connection connection = ConnectionUtil.getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.getAllBoardsWtihUserId"));
-		ResultSet rs = pstmt.executeQuery();
-		
-		while (rs.next()) {
-			BoardDto boardDto = new BoardDto();
-			
-			boardDto.setBoardNo(rs.getInt("board_no"));
-			boardDto.setBoardTitle(rs.getString("board_title"));
-			boardDto.setBoardHit(rs.getInt("board_hit"));
-			boardDto.setBoardReplyCnt(rs.getInt("board_reply_cnt"));
-			boardDto.setBoardDelYN(rs.getString("board_del_yn"));
-			boardDto.setBoardCreateDate(rs.getDate("board_create_date"));
-			boardDto.setUserId(rs.getString("user_id"));
-			boardDto.setBoardContent(rs.getString("board_content"));
-			
-			boards.add(boardDto);
-		}
-		
-		rs.close();
-		pstmt.close();
-		connection.close();
-		
-		return boards;
-	}
-	
-	public void updateHitByBoardNo(int boardNo) throws SQLException {
-		
-		Connection connection = ConnectionUtil.getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.updateHitByBoardNo"));
-		pstmt.setInt(1, boardNo);
 		pstmt.executeUpdate();
 		
 		pstmt.close();
 		connection.close();
-		
+		*/
 	}
 	
-	public void updateBoardStateDelY(int boardNo) throws SQLException {
+	public void updateBoard(Board board) {
 		
+		JdbcHelper.update(QueryUtil.getSQL("board.updateBoard"), 
+						board.getTitle(), board.getContent(), board.getHit(), board.getReplyCnt(), board.getDelYn(), board.getNo());
+		
+		/*
 		Connection connection = ConnectionUtil.getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.updateBoardStateDelY"));
-		pstmt.setInt(1, boardNo);
-		pstmt.executeUpdate();
-		
-		pstmt.close();
-		connection.close();
-		
-	}
-	public void updatePostByBoard(Board board) throws SQLException {
-		
-		Connection connection = ConnectionUtil.getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.updateEditPostByBoardNo"));
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.updateBoard"));
 		pstmt.setString(1, board.getTitle());
 		pstmt.setString(2, board.getContent());
-		pstmt.setInt(3, board.getNo());
+		pstmt.setInt(3, board.getHit());
+		pstmt.setInt(4, board.getReplyCnt());
+		pstmt.setString(5, board.getDelYn());
+		pstmt.setInt(6, board.getNo());
+		
 		pstmt.executeUpdate();
 		
 		pstmt.close();
 		connection.close();
+		*/
 	}
 	
-	public void insertNewPostUsedBoardDto(BoardDto boardDto) throws SQLException {
+	public void deleteBoard(int boardNo) {
 		
+		JdbcHelper.update(QueryUtil.getSQL("board.deleteBoard"), boardNo);
+		
+		/*
 		Connection connection = ConnectionUtil.getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.insertNewPostUsedBoardDto"));
-		pstmt.setString(1, boardDto.getBoardTitle());
-		pstmt.setString(2, boardDto.getUserId());
-		pstmt.setString(3, boardDto.getBoardContent());
-		pstmt.executeUpdate();
-		
-		pstmt.close();
-		connection.close();
-	}
-	
-	
-	
-	
-	
-	public BoardDto getPostsWithUserIdByBoardNo(int boardNo) throws SQLException {
-		
-		BoardDto boardDto = null;
-		
-		Connection connection = ConnectionUtil.getConnection();
-		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.getPostsWithUserIdByBoardNo"));
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.deleteBoard"));
 		pstmt.setInt(1, boardNo);
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		*/
+	}
+	
+	public void updateBoardHit(int boardNo) {
+		
+		JdbcHelper.update(QueryUtil.getSQL("board.updateBoardHit"), boardNo);
+		
+		/*
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.updateBoardHit"));
+		pstmt.setInt(1, boardNo);
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		*/
+	}
+
+	public void updateBoardReplyCnt(int boardNo) {
+		
+		JdbcHelper.update(QueryUtil.getSQL("board.updateBoardReplyCnt"), boardNo);
+		
+		/*
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.updateBoardReplyCnt"));
+		pstmt.setInt(1, boardNo);
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		connection.close();
+		*/
+	}
+	
+	public int getTotalRows() {
+		
+		return JdbcHelper.selectOne(QueryUtil.getSQL("board.getTotalRows"), new RowMapper<Integer>() {
+			@Override
+			public Integer mapRow(ResultSet rs) throws SQLException {
+				return rs.getInt("cnt");
+			}
+		});
+		
+		/*
+		int totalRows = 0;
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.getTotalRows"));
 		ResultSet rs = pstmt.executeQuery();
+		rs.next();
+		totalRows = rs.getInt("cnt");
+		rs.close();
+		pstmt.close();
+		connection.close();
+		return totalRows;
+		*/
+	}
+	
+	public List<BoardDto> getBoards(int beginIndex, int endIndex) {
 		
-		if (rs.next()) {
+		return JdbcHelper.selectList(QueryUtil.getSQL("board.getBoards"), new RowMapper<BoardDto>() {
+			@Override
+			public BoardDto mapRow(ResultSet rs) throws SQLException {
+				BoardDto dto = new BoardDto();
+				dto.setNo(rs.getInt("board_no"));
+				dto.setTitle(rs.getString("board_title"));
+				dto.setWriter(rs.getString("board_writer"));
+				dto.setWriterName(rs.getString("board_writer_name"));
+				dto.setContent(rs.getString("board_content"));
+				dto.setHit(rs.getInt("board_hit"));
+				dto.setReplyCnt(rs.getInt("board_reply_cnt"));
+				dto.setDelYn(rs.getString("board_del_yn"));
+				dto.setCreateDate(rs.getDate("board_create_date"));
+				return dto;
+			}
+		}, beginIndex, endIndex);
+		
+		/*
+		List<BoardDto> boards = new ArrayList<BoardDto>();
+		
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.getBoards"));
+		pstmt.setInt(1, beginIndex);
+		pstmt.setInt(2, endIndex);
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next() ) {
+			BoardDto dto = new BoardDto();
+			dto.setNo(rs.getInt("board_no"));
+			dto.setTitle(rs.getString("board_title"));
+			dto.setWriter(rs.getString("board_writer"));
+			dto.setWriterName(rs.getString("board_writer_name"));
+			dto.setContent(rs.getString("board_content"));
+			dto.setHit(rs.getInt("board_hit"));
+			dto.setReplyCnt(rs.getInt("board_reply_cnt"));
+			dto.setDelYn(rs.getString("board_del_yn"));
+			dto.setCreateDate(rs.getDate("board_create_date"));
 			
-			boardDto = new BoardDto();
-			boardDto.setBoardNo(rs.getInt("board_no"));
-			boardDto.setBoardTitle(rs.getString("board_title"));
-			boardDto.setBoardHit(rs.getInt("board_hit"));
-			boardDto.setBoardReplyCnt(rs.getInt("board_reply_cnt"));
-			boardDto.setBoardDelYN(rs.getString("board_del_yn"));
-			boardDto.setBoardCreateDate(rs.getDate("board_create_date"));
-			boardDto.setUserId(rs.getString("user_id"));
-			boardDto.setBoardContent(rs.getString("board_content"));
-			
+			boards.add(dto);
 		}
-		
 		rs.close();
 		pstmt.close();
 		connection.close();
 		
-		return boardDto;
+		return boards;
+		*/
 	}
-
 	
+	public List<BoardDto> getBoardsByWriter(String writer) {
+		
+		return JdbcHelper.selectList(QueryUtil.getSQL("board.getBoardsByWriter"), new RowMapper<BoardDto>() {
+			@Override
+			public BoardDto mapRow(ResultSet rs) throws SQLException {
+				BoardDto dto = new BoardDto();
+				dto.setNo(rs.getInt("board_no"));
+				dto.setTitle(rs.getString("board_title"));
+				dto.setWriter(rs.getString("board_writer"));
+				dto.setWriterName(rs.getString("board_writer_name"));
+				dto.setContent(rs.getString("board_content"));
+				dto.setHit(rs.getInt("board_hit"));
+				dto.setReplyCnt(rs.getInt("board_reply_cnt"));
+				dto.setDelYn(rs.getString("board_del_yn"));
+				dto.setCreateDate(rs.getDate("board_create_date"));
+				return dto;
+			}
+		}, writer);
+		
+		/*
+		List<BoardDto> boards = new ArrayList<BoardDto>();
+		
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.getBoardsByWriter"));
+		pstmt.setString(1, writer);
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next() ) {
+			BoardDto dto = new BoardDto();
+			dto.setNo(rs.getInt("board_no"));
+			dto.setTitle(rs.getString("board_title"));
+			dto.setWriter(rs.getString("board_writer"));
+			dto.setWriterName(rs.getString("board_writer_name"));
+			dto.setContent(rs.getString("board_content"));
+			dto.setHit(rs.getInt("board_hit"));
+			dto.setReplyCnt(rs.getInt("board_reply_cnt"));
+			dto.setDelYn(rs.getString("board_del_yn"));
+			dto.setCreateDate(rs.getDate("board_create_date"));
+			
+			boards.add(dto);
+		}
+		rs.close();
+		pstmt.close();
+		connection.close();
+		
+		return boards;
+		*/
+	}
+	
+	public BoardDto getBoard(int boardNo) {
+		
+		return JdbcHelper.selectOne(QueryUtil.getSQL("board.getBoard"), new RowMapper<BoardDto>() {
+			@Override
+			public BoardDto mapRow(ResultSet rs) throws SQLException {
+				BoardDto dto = new BoardDto();
+				dto.setNo(rs.getInt("board_no"));
+				dto.setTitle(rs.getString("board_title"));
+				dto.setWriter(rs.getString("board_writer"));
+				dto.setWriterName(rs.getString("board_writer_name"));
+				dto.setContent(rs.getString("board_content"));
+				dto.setHit(rs.getInt("board_hit"));
+				dto.setReplyCnt(rs.getInt("board_reply_cnt"));
+				dto.setDelYn(rs.getString("board_del_yn"));
+				dto.setCreateDate(rs.getDate("board_create_date"));
+				return dto;
+			}
+		}, boardNo);
+		
+		/*
+		BoardDto dto = null;		
+		Connection connection = ConnectionUtil.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(QueryUtil.getSQL("board.getBoard"));
+		pstmt.setInt(1, boardNo);
+		ResultSet rs = pstmt.executeQuery();
+		if (rs.next()) {
+			dto = new BoardDto();
+			dto.setNo(rs.getInt("board_no"));
+			dto.setTitle(rs.getString("board_title"));
+			dto.setWriter(rs.getString("board_writer"));
+			dto.setWriterName(rs.getString("board_writer_name"));
+			dto.setContent(rs.getString("board_content"));
+			dto.setHit(rs.getInt("board_hit"));
+			dto.setReplyCnt(rs.getInt("board_reply_cnt"));
+			dto.setDelYn(rs.getString("board_del_yn"));
+			dto.setCreateDate(rs.getDate("board_create_date"));
+		}
+		rs.close();
+		pstmt.close();
+		connection.close();		
+		return dto;
+		*/
+	}
 }
+
+
