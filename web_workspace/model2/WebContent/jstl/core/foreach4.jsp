@@ -22,6 +22,7 @@
 			<h1>forEach 태그</h1>
 		</div>
 	</div>
+	
 	<% 
 		List<Book> books = new ArrayList<Book>();
 		books.add(new Book(100, "자바의 정석", "남궁성", 35000, 10));
