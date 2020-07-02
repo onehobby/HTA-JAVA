@@ -36,18 +36,19 @@
 					</tr>
 				</thead>
 				<tbody>
-				<!-- forEach를 태그를 사용해서 최근 등록된 책을 표현하시오.
+				<!-- 
+					forEach를 태그를 사용해서 최근 등록된 책을 표현하시오.
 					순번은 책번호 혹은 varStatus를 활용해서 1~3까지 표현하시오.
 					가격은 자릿수가 표현되도록 표현하시오.
-					등록일은 2020.9.1과 같은 형식으로 표현하시오
-				 -->
-				<c:forEach var="book" items="${recentBooks }" varStatus="x">
+					등록일은 2020.9.1과 같은 형식으로 표현하시오.
+				  -->
+				<c:forEach var="book" items="${recentBooks }">
 					<tr>
-						<td>${x.count }</td>
+						<td>${book.no }</td>
 						<td>${book.title }</td>
 						<td>${book.writer }</td>
-						<td><fmt:formatNumber value="${book.price }" />원</td>
-						<td><fmt:formatDate value="${book.registeredDate }" pattern="YYYY.M.d"/></td>
+						<td><fmt:formatNumber value="${book.price }" /> 원</td>
+						<td><fmt:formatDate value="${book.registeredDate }"/> </td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -57,3 +58,13 @@
 </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

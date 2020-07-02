@@ -14,17 +14,16 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<%@ include file="common/nav.jsp" %>
+<%@ include file="../common/nav.jsp" %>
 <div class="container">
 	<div class="row">
 		<div class="col-12">
-			<h1>Home</h1>
-			<p>${message }</p>
+			<h1>List View</h1>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-12">
-			<h3>최근 등록된 책 <small class="float-right"><a href="book/list.hta">더보기</a></small></h3>
+			<h3>전체 도서 목록</h3>
 			<table class="table">
 				<thead>
 					<tr>
@@ -33,25 +32,25 @@
 						<th>저자</th>
 						<th>가격</th>
 						<th>등록일</th>
-					</tr>
+						<th></th>
+					</tr>				
 				</thead>
 				<tbody>
-				<!-- forEach를 태그를 사용해서 최근 등록된 책을 표현하시오.
-					순번은 책번호 혹은 varStatus를 활용해서 1~3까지 표현하시오.
-					가격은 자릿수가 표현되도록 표현하시오.
-					등록일은 2020.9.1과 같은 형식으로 표현하시오
-				 -->
-				<c:forEach var="book" items="${recentBooks }" varStatus="x">
+				<c:forEach var="books" items="${books }" varStatus="x">
 					<tr>
-						<td>${x.count }</td>
-						<td>${book.title }</td>
-						<td>${book.writer }</td>
-						<td><fmt:formatNumber value="${book.price }" />원</td>
-						<td><fmt:formatDate value="${book.registeredDate }" pattern="YYYY.M.d"/></td>
+						<td>${x.count}</td>
+						<td><a href="detail.hta?bookno=${books.no }">${books.title }</a></td>
+						<td>${books.writer }</td>
+						<td><fmt:formatNumber value="${books.price }" />원</td>
+						<td><fmt:formatDate value="${books.registeredDate }"/></td>
+						<td><a href="detail.hta?bookno=${books.no }" class="btn btn-primary" >상세보기</a></td>
 					</tr>
 				</c:forEach>
 				</tbody>
 			</table>
+			<div class="mt-3 text-right">
+				<a href="form.hta" class="btn btn-primary">새 책</a>
+			</div>
 		</div>
 	</div>
 </div>
