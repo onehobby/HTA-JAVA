@@ -16,6 +16,9 @@
 <body>
 <%@ include file="../common/nav.jsp" %>
 <div class="container">
+	<c:if test="${'fail' eq param.error }">
+		<div class="alert alert-danger">아이디 혹은 비밀번호를 확인해주세요</div>
+	</c:if>
 	<div class="row">
 		<div class="col-12">
 			<h1>로그인 폼</h1>

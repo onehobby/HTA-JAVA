@@ -9,6 +9,7 @@ public class LoginFormController implements Controller {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
 		return "user/loginform.jsp";
 	}
 }
