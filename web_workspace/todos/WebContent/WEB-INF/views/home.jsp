@@ -28,7 +28,7 @@
 								<div class="card">
 									<div class="card-header d-flex justify-content-between">
 										<div>${todo.title }</div> 
-										<div><span class="badge ${todo.statusClass }">${todo.status }</span></div>
+										<div><span id="card-todo-status-${todo.no }" class="badge ${todo.statusClass }">${todo.status }</span></div>
 									</div>
 									<div class="card-body">
 										<div class="row mb-3">
@@ -36,7 +36,7 @@
 												<small>${todo.content }</small>
 											</div>
 											<div class="col-3">
-												<button type="button" class="btn btn-outline-secondary btn-sm" onclick="openTodoDetailModal(${todo.no})">상세</button>
+												<button type="button" class="btn btn-outline-secondary btn-sm" onclick="openTodoDetailModal(${todo.no}); detail(${todo.no })">상세</button>
 											</div>
 										</div>
 										<div class="d-flex justify-content-between">
@@ -76,24 +76,26 @@
      							</colgroup>
      							<tbody>
      								<tr>
+     									<th>번호</th>
+     									<td id="modal-todo-no"></td>
      									<th>제목</th>
-     									<td colspan="3">프로젝트 일정 회의</td>
+     									<td colspan="3" id="modal-todo-title"></td>
      								</tr>
      								<tr>
      									<th>작성자</th>
-     									<td>홍길동</td>
+     									<td id="modal-todo-username"></td>
      									<th>등록일</th>
-     									<td>2020-06-12</td>
+     									<td id="modal-todo-day"></td>
      								</tr>
      								<tr>
      									<th>상태</th>
-     									<td>처리예정</td>
-     									<th>예정일</th>
-     									<td>2020-07-12</td>
+     									<td id="modal-todo-status"></td>
+     									<th>완료일자</th>
+     									<td id="modal-todo-completed-day"></td>
      								</tr>
      								<tr>
      									<th style="vertical-align: middle;">내용</th>
-     									<td colspan="3"><small>내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 내용 </small></td>
+     									<td colspan="3" id="modal-todo-content"></td>
      								</tr>
      							</tbody>
      						</table>
@@ -101,10 +103,12 @@
      				</div>
    				</div>
    				<div class="modal-footer">
-     				<button type="button" class="btn btn-success btn-sm">처리완료</button>
-     				<button type="button" class="btn btn-info btn-sm">처리중</button>
-     				<button type="button" class="btn btn-secondary btn-sm">보류</button>
-     				<button type="button" class="btn btn-danger btn-sm">취소</button>
+   					<span id="btn-todo-modify" style="display: none">
+   					<button type="button" class="btn btn-success btn-sm" onclick="updateTodoStatus('처리완료')">처리완료</button>
+     				<button type="button" class="btn btn-info btn-sm" onclick="updateTodoStatus('처리중')">처리중</button>
+     				<button type="button" class="btn btn-secondary btn-sm" onclick="updateTodoStatus('보류')">보류</button>
+     				<button type="button" class="btn btn-danger btn-sm" onclick="updateTodoStatus('삭제')">삭제</button>
+     				</span>
      				<button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">닫기</button>
    				</div>
  			</div>
@@ -114,9 +118,101 @@
 	<%@ include file="footer.jsp" %>
 </div>
 <script type="text/javascript">
+
 	function openTodoDetailModal(todoNo) {
 		$("#modal-todo-detail").modal('show');
 	}
+	
+	function detail(todoNo) {
+		
+		
+		//button.style.display = "none";
+		
+		var xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState == 4 && xhr.status == 200) {
+				var text = xhr.responseText;
+				var resData = JSON.parse(text);
+				
+				document.querySelector("#modal-todo-no").textContent = resData.no;
+				
+				var button = document.querySelector("#btn-todo-modify");
+				
+				if (resData.canModify) {
+					button.style.display = "block";
+				} else {
+					button.style.display = "none";
+				}
+				
+				document.querySelector("#modal-todo-title").textContent = resData.title
+				document.querySelector("#modal-todo-username").textContent = resData.userId
+				document.querySelector("#modal-todo-day").textContent = resData.createDate
+				document.querySelector("#modal-todo-status").textContent = resData.status
+				document.querySelector("#modal-todo-completed-day").textContent = resData.completedDay
+				document.querySelector("#modal-todo-content").innerHTML = '<small>resData.content</small>';
+				
+				
+				
+				/*
+				var button = document.querySelector("#modal-todo-button");
+								
+				var buttonlist = '<button type="button" class="btn btn-success btn-sm">처리완료</button>'
+								+ '<button type="button" class="btn btn-info btn-sm">처리중</button>'
+								+ '<button type="button" class="btn btn-secondary btn-sm">보류</button>'
+								+ '<button type="button" class="btn btn-danger btn-sm">취소</button>'
+								+ '<button type="button" class="btn btn-primary btn-sm">처리예정</button>'
+								+ '<button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">닫기</button>'
+								
+				if (resData.canModify) {
+					
+					button.innerHTML = buttonlist;
+					
+				} else if (!resData.canModify) {
+					
+					button.innerHTML = '<button type="button" class="btn btn-outline-dark btn-sm" data-dismiss="modal">닫기</button>'
+				}
+								
+				*/
+				
+			}			
+		}
+		
+		xhr.open("get", "todo/detail.hta?todono=" + todoNo);
+		
+		xhr.send();
+	}
+	
+	function updateTodoStatus(status) {
+		
+		var todoNo = document.querySelector("#modal-todo-no").textContent;
+		
+		var data = "status=" + status + "&todono=" + todoNo
+		
+		var xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState == 4 && xhr.status == 200) {
+				var text = xhr.responseText;
+				var resData = JSON.parse(text);
+				
+				document.querySelector("#modal-todo-status").textContent = resData.status;
+				document.querySelector("#modal-todo-completed-day").textContent = resData.completedDay;
+				
+				var el = document.querySelector("#card-todo-status-" + todoNo);
+				el.textContent = resData.status;
+				
+				el.className = "badge " + resData.statusClass;
+				
+				
+			}
+		}
+		xhr.open("post", "/todo/updatestatus.hta");
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhr.send(data);
+		
+	}
+	
 </script>
 </body>
 </html>

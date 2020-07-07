@@ -10,9 +10,11 @@ public class TodoDto {
 	private Date day;
 	private Date completedDay;
 	private String status;
+	private String statusClass;
 	private String userId;
 	private String userName;
 	private Date createDate;
+	private boolean canModify;
 	
 	public TodoDto() {
 		// TODO Auto-generated constructor stub
@@ -80,7 +82,10 @@ public class TodoDto {
 	}
 
 	public void setStatus(String status) {
+		
 		this.status = status;
+		this.statusClass = getStatusClass();
+		
 	}
 
 	public String getUserId() {
@@ -105,6 +110,18 @@ public class TodoDto {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public void setStatusClass(String statusClass) {
+		this.statusClass = statusClass;
+	}
+	
+	public boolean getCanModify() {
+		return canModify;
+	}
+	
+	public void setCanModify(boolean canModify) {
+		this.canModify = canModify;
 	}
 	
 

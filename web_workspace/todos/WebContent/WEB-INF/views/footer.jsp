@@ -148,7 +148,7 @@
 				
 			};					
 			
-			xhr.open("post", "register.hta");
+			xhr.open("post", "/register.hta");
 			// post방식일때는 입력값의 컨텐츠타입을 지정해주어야아한다.
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.send(data);
@@ -185,7 +185,7 @@
 				}
 			}
 			
-			xhr.open("post", "login.hta");
+			xhr.open("post", "/login.hta");
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.send(data);
 			
