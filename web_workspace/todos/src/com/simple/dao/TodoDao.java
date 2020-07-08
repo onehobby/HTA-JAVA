@@ -139,7 +139,7 @@ public class TodoDao {
 			sql +="			and todo_title like '%' || '"+keyword+"' || '%'  ";
 		}
 		
-		sql += "			)where rn >= ? and rn <= ? ";	
+		sql += "			) where rn >= ? and rn <= ? ";	
 		
 		Connection connection = ConnectionUtil.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(sql);

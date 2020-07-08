@@ -76,7 +76,6 @@ public class TodoController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("todos.jsp");	
 		
 		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("loginUser"); 
@@ -92,6 +91,7 @@ public class TodoController {
 		
 		mav.addAttribute("todos", todos);
 		mav.addAttribute("pagination", pagination);
+		mav.setViewName("todos.jsp");	
 		
 		return mav;
 	}

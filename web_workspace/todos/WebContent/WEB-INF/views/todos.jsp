@@ -14,9 +14,10 @@
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<fmt:bundle basename="com.simple.resources.message">
 <div class="container">
+	<c:set var="position" value="todos" />
 	<%@ include file="nav.jsp" %>
-	
 	<!-- Content -->
 	<div class="row mb-3">
 		<div class="col-12">
@@ -83,7 +84,6 @@
 								<c:forEach var="num" begin="${pagination.begin }" end="${pagination.end }">
 									<li class="page-item"><a class="page-link" href="#" onclick="refreshList(${num},event)">${num}</a></li>
 								</c:forEach>
-								
 								<li class="page-item"><a class="page-link" href="#">다음</a></li>
 							</ul>
 						</div>
@@ -217,5 +217,6 @@
 	
 
 </script>
+</fmt:bundle>
 </body>
 </html>
