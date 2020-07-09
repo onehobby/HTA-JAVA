@@ -14,7 +14,15 @@ import com.simple.util.QueryUtil;
 import com.simple.vo.Todo;
 
 public class TodoDao {
-	
+													// [싱글턴객체]로 만드는 방식
+	private static TodoDao self = new TodoDao();	// 정적변수 self에 TodoDao객체를 담아둔다, static을 지정하면 클래스가 로딩될때 객체가 생성된다. 
+													// static을 지정하지 않으면 클래스를 호출할 때마다 객체가 생성된다.
+													// 이런방식으로 [싱글턴객체]로 만든다.
+	private TodoDao() {}							// 생성자에 대해서 외부 접근을 차단한다.
+	public static TodoDao getInstance() {			// 미리 생성된 TodoDao객체를 제공하는 기능이다.
+		return self;
+	}
+
 	public List<TodoDto> getRecentTodos() throws SQLException {
 		
 		List<TodoDto> todos = new ArrayList<TodoDto>();
