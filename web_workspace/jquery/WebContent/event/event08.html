@@ -64,13 +64,13 @@
 	// $(함수()) {} 의 형태를 사용한다.
 	$(function() {
 		// 버튼 등 여러 엘리먼트에 이벤트 핸들러 등록하기
+		// AJAX를 실행시켜서 첫 데이터 가져오기
+		// 화면의 스타일과 관련된 작업(특정 엘리먼트를 표시하거나 감추는 작업 등)
+		// 화면과 관련된 초기화 작업
 		$("#btn-box button").click(function() {
 			var buttonName = $(this).text();
 			alert(buttonName + "이 클릭되었습니다.");
 		})		
-		// AJAX를 실행시켜서 첫 데이터 가져오기
-		// 화면의 스타일과 관련된 작업(특정 엘리먼트를 표시하거나 감추는 작업 등)
-		// 화면과 관련된 초기화 작업
 		$(".tab .tab-link:first").addClass('active');
 		$(".tab .tab-content:first").show().siblings().hide();
 	});
