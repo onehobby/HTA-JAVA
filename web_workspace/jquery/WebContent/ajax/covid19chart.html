@@ -177,7 +177,7 @@ $(function() {
 // 2. AJAX 요청
 		$.get("/jquery/covid19sido", reqParam, function(xmlDoc) {
 // 3.XML 응답 데이터 처리
-			covid19Items.length = 0;			// 배열 내부를 비운다.
+			covid19Items.length = 0;			// 배열 내부를 초기화시킨다(비운다);
 			var items = $(xmlDoc).find("item");
 			for (var index in items) {
 				var $item = $(items[index]);
